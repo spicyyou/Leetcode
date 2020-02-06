@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>> ans;    
+    vector<int> vec;
+    void perm(vector<int> & nums, int depth){
+        if (depth == nums.size()-1) {
+            ans.push_back(nums);
+        } 
+        for (int i = depth; i < nums.size(); i++) 
+        { 
+            int temp = nums[i];
+            nums[i]=nums[depth];
+            nums[depth]=temp;
+            perm(nums, depth + 1); 
+            temp = nums[i];
+            nums[i]=nums[depth];
+            nums[depth]=temp;
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) { 
+        perm(nums, 0);
+        return ans;
+    }
+};
