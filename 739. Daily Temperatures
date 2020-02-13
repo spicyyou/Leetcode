@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<pair<int, int > >vec;
+    pair<int, int> arr[30005];
+    vector<int> dailyTemperatures(vector<int>& T) {
+        int n=T.size()-1;
+        vector<int> ans;
+        ans.push_back(0);
+        pair<int, int > tmp;
+        tmp.first=-1;
+        tmp.second=-1;
+        arr[n]=tmp;
+        for (int i=n-1;i>=0 ;i--){
+            if(T[i]<T[i+1]){
+                ans.push_back(1);
+                tmp.first=T[i+1];
+                tmp.second=i+1;
+                arr[i]=tmp;
+            }else{
+                int ok=0;
+                for(int j=i+1;j<=n;j++){
+                    if(arr[j].second==-1){
+                        break;
+                    }
+                    if(T[i]<arr[j].first){ 
+                        tmp.first=arr[j].first;
+                        tmp.second=arr[j].second;
+                        arr[i]=tmp;
+                        ok=1;
+                        break;
+                    }
+                }
+                if(ok==0){
+                    tmp.first=-1;
+                    tmp.second=-1;
+                    arr[i]=tmp;
+                    ans.push_back(0);
+                }
+                else{ans.push_back(arr[i].second-i);}
+            }
+        }
+        vector<int> ANS;
+        for (int i=ans.size()-1;i>=0;i--){
+            ANS.push_back(ans[i]);
+        }
+        return ANS;
+    }
+};
