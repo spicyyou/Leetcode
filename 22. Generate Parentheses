@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string str;
+    int num;
+    vector<string> ans;
+    void perm(string s, int open, int close, int max){
+        if(s.length()==max*2){
+            ans.push_back(s);
+        }
+        if(open<max)
+        {
+            perm(s+"(",open+1,close,max);
+        }
+        if(close<open){
+            perm(s+")",open,close+1,max);
+        }
+    }
+    
+    
+    vector<string> generateParenthesis(int n) {
+        num=n;
+        perm("",0,0,n);
+        return ans;
+    }
+};
