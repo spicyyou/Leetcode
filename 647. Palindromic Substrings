@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int cnt;
+    int ispalin(string s){
+        int l=0;
+        int r=s.length()-1;
+        while(l<=r){
+            if(s[l]!=s[r]) return -1;
+            l++;
+            r--;
+        }
+        cnt++;
+        return 1;
+    }
+    int countSubstrings(string s) {   
+        int n=s.length();
+        for (int j=0;j<n;j++){//문자열시작 인덱스
+            string temp="";
+            for (int i=j;i<n;i++){//길이만큼 반복
+                temp+=s[i];
+                ispalin(temp);
+            }
+        }
+        return cnt;
+    }
+};
