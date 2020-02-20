@@ -1,0 +1,30 @@
+class Solution {
+public:
+    static bool mycomp(pair<int, int> p1, pair<int, int> p2){
+        return p1.second>p2.second;
+    }
+    
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        sort(nums.begin(),nums.end());
+        vector<pair<int, int >> vec;
+        vec.push_back({nums[0],0});
+        int prev=vec[0].first;
+        int cnt=0;
+        for(int i=1;i<nums.size();i++){
+            if(prev!=nums[i]){
+                cnt++;
+                vec.push_back({nums[i],0});
+            }else{
+                vec[cnt].second++;
+            }
+            prev=vec[cnt].first;
+        }
+        
+        sort(vec.begin(),vec.end(),mycomp);
+        vector<int> ans;
+        for (int i=0;i<k;i++){
+            ans.push_back(vec[i].first);
+        }
+        return ans;
+    }
+};
