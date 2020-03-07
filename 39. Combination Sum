@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int arr[10000005];
+    vector<vector<int> > ans;
+   void sum(vector<int> candi, int tar,int index,int now,int cnt){
+       now+=candi[index];
+       arr[cnt]=candi[index];
+       if(now==tar){
+           vector<int> tmp;
+           for(int i=0;i<=cnt;i++){
+               tmp.push_back(arr[i]);
+           }
+           sort(tmp.begin(),tmp.end());
+           ans.push_back(tmp);
+           return;
+       }else if(now>tar){return;}
+       for(int i=0;i<candi.size();i++){
+         sum(candi,tar,i,now,cnt+1);
+       }
+       
+   }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        for(int i=0;i<candidates.size();i++){
+            sum(candidates,target,i,0,0);
+        }
+        sort(ans.begin(),ans.end());
+        ans.erase(unique(ans.begin(),ans.end()),ans.end());
+        return ans;
+    }
+};
