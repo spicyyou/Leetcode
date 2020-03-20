@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int row,col;
+    int dr[2]={0,1};
+    int dc[2]={1,0};
+    int visit[1000][1000];
+    int dfs(int r, int c,vector<vector<int>>& grid){
+        if(row-1==r&&col-1==c) return -1;
+        for(int i=0;i<2;i++){
+            int nr=r+dr[i];
+            int nc=c+dc[i];
+            if(nr>=row||nc>=col||nr<0||nc<0) continue;
+            if(visit[nr][nc]>grid[nr][nc]+visit[r][c]){
+                visit[nr][nc]=grid[nr][nc]+visit[r][c];
+                dfs(nr,nc,grid);
+            }
+        }
+        return -1;
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+        row=grid.size();
+        col=grid[0].size();
+        int inf=0x7ffffff;
+        for(int i=0;i<row;i++){
+            for (int j=0;j<col;j++){
+                visit[i][j]=inf;
+            }
+        }
+        visit[0][0]=grid[0][0];
+        dfs(0,0,grid);
+        return visit[row-1][col-1];
+    }
+};
