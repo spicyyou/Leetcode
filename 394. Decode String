@@ -1,0 +1,45 @@
+class Solution {
+public:
+
+   
+string decodeString(string s) {
+       int n=s.length();
+      stack<char> st;
+      stack<int> stn;
+        string num;
+      for(int i=0;i<n;i++){
+        if(isdigit(s[i])){
+          num+=s[i];
+        }else if(s[i]=='['){
+          int iter = atoi(num.c_str());
+          stn.push(iter);
+          st.push(s[i]);
+          num="";
+        }else if(s[i]==']'){
+          string tmp="";
+          while(!st.empty()){
+            if(st.top()=='[') break;
+            tmp+=st.top();
+            st.pop();
+          }
+          st.pop();
+          int iter=stn.top();
+          stn.pop();
+          for(int i=0;i<iter;i++){
+          for(int i=tmp.length()-1;i>=0;i--){
+            st.push(tmp[i]);
+          }
+        }
+        }else{
+          st.push(s[i]);
+        }
+      }
+      string ans="";
+      while(!st.empty()){
+        ans+=st.top();
+        st.pop();
+      }
+    reverse(ans.begin(),ans.end());
+    return ans;
+   }
+}; 
